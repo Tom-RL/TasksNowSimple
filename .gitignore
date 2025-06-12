@@ -1,0 +1,11 @@
+*.db
+*.db-shm
+*.db-wal
+*.vsidx
+*.opendb
+/.vs
+/x64/Debug
+*.sln
+*.vcxproj
+*.filters
+*.user
