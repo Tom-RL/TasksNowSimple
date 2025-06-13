@@ -1,7 +1,11 @@
 #define NOMINMAX
 #include <limits>
 #include <Windows.h>
+#include <vector>
 #include <iostream>
+#include "Task.h" 
+
+std::vector<Task> tasklist{};
 
 void cinError()
 {
@@ -14,6 +18,7 @@ void cinError()
 
 void addTask() //função para adicionar tarefa
 {
+
 }
 
 void listTasks() //função para listar tarefas
@@ -66,32 +71,27 @@ int main()
 		case 1:
 			std::cout << "Opção 1. \'adicionar tarefa\' selecionada.\n";
 			addTask();
-			isRunning = false;
 			break;
 		case 2:
 			std::cout << "Opção 2. \'listar tarefas\' selecionada.\n";
 			listTasks();
-			isRunning = false;
 			break;
 		case 3:
 			std::cout << "Opção 3. \'marcar tarefa como concluída\' selecionada.\n";
 			markTaskAsCompleted();
-			isRunning = false;
 			break;
 		case 4:
 			std::cout << "Opção 4. \'remover tarefa\' selecionada.\n";
 			removeTask();
-			isRunning = false;
 			break;
 		case 5:
 			std::cout << "Opção 5. \'salvar lista\' selecionada.\n";
 			saveTaskList();
-			isRunning = false;
 			break;
 		case 6:
 		case 0:
 			std::cout << "Saindo do programa...\n";
-			return 0;
+			isRunning = false;
 
 		default:
 			std::cout << "Opção inválida. Tente novamente.\n\n";
