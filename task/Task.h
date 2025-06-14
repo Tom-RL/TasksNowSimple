@@ -9,25 +9,28 @@
 class Task
 {
 private:
-    int m_id{};
     std::string m_name{};
+	std::string m_description{};
+    int m_id{};
     bool m_completed{ false };
 
 public:
     // Construtor
-    Task(int id, std::string_view name, bool completed = false);
+    Task(std::string_view name, std::string_view description, int id, bool completed);
 
     // Getters
     int getId() const;
     std::string getName() const;
+	std::string getDescription() const;
     bool isCompleted() const;
 
-    // Setters e métodos utilitários
+    // Setters and utility methods
+	void setId(int id);
     void setName(std::string_view name);
+	void setDescription(std::string_view description);
     void markCompleted();
-    void toggleCompleted();
 
-    // Operador de saída
+    // Output Operator
     friend std::ostream& operator<<(std::ostream& os, const Task& task);
 };
 
