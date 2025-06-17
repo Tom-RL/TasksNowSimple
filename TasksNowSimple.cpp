@@ -6,6 +6,7 @@
 #include <chrono>
 #include <thread>
 #include "task/task.h"
+#include "storage/Storage.h"
 
 std::vector<Task> taskList{}; //temporário
 
@@ -59,6 +60,9 @@ void addTask() //function to add a task
 {
 	static int id{ 0 }; // ID of task, start in 0 and increments with each new task
 
+	std::this_thread::sleep_for(std::chrono::milliseconds(1200));
+	clearScreen();
+
 	std::cout << "Enter the task name: ";
 	std::string name{};
 	std::getline(std::cin >> std::ws, name);
@@ -93,6 +97,33 @@ void addTask() //function to add a task
 
 void listTasks() //funtion to list tasks
 {
+	std::this_thread::sleep_for(std::chrono::milliseconds(1200));
+	clearScreen();
+	if(taskList.empty())
+	{ 
+		setColor(12); // red
+		std::cout << "No tasks available.\n\n";
+		setColor(7);
+		std::this_thread::sleep_for(std::chrono::seconds(2));
+		clearScreen();
+		return;
+	}
+	else
+	{ 
+		setColor(10); // green
+		std::cout << "List of tasks:\n\n";
+		setColor(7);
+
+		std::this_thread::sleep_for(std::chrono::seconds(1));
+		for (const auto& task : taskList)
+		{
+			std::cout << task << "\n\n"; // uses the overloaded operator<< from task.h to print the task
+		}
+		std::cout << "Press Enter to continue...\n";
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		std::cin.get();
+		clearScreen();
+	}
 }
 
 void markTaskAsCompleted() //funtion to mark a task as completed
@@ -105,6 +136,33 @@ void removeTask() //funtion to remove a task
 
 void saveTaskList() //funtion to save the task list to a file
 {
+	std::this_thread::sleep_for(std::chrono::milliseconds(1200));
+	clearScreen();
+	if (taskList.empty())
+	{
+		setColor(12); // red
+		std::cout << "No tasks to save.\n\n";
+		setColor(7);
+		std::this_thread::sleep_for(std::chrono::seconds(2));
+		clearScreen();
+		return;
+	}
+
+	if (saveTaskListInFile(taskList, "task.txt"))
+	{
+		setColor(10); // green
+		std::cout << "Task list saved successfully!\n\n";
+		setColor(7);
+	}
+	else
+	{
+		setColor(12); // red
+		std::cout << "Failed to save task list.\n\n";
+		setColor(7);
+	}
+
+	std::this_thread::sleep_for(std::chrono::seconds(2));
+	clearScreen();
 }
 
 int main()
@@ -113,6 +171,8 @@ int main()
 	 *	SetConsoleOutputCP(CP_UTF8);
 	 *	SetConsoleCP(CP_UTF8);
 	 */
+
+	taskList = loadTaskList("task.txt"); // Load tasks from file at the start of the program
 
 	bool isRunning = true;
 

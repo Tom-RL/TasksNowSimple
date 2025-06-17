@@ -10,3 +10,6 @@
 *.filters
 *.user
 /TasksNowSimple/x64
+TasksNowSimple.rc
+resource.h
+TasksNowSimple.aps
