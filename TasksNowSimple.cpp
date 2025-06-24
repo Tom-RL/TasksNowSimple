@@ -139,7 +139,7 @@ void listTasks() //funtion to list tasks
 			std::cout << task << "\n\n"; // uses the overloaded operator<< from task.h to print the task
 		}
 		std::cout << "Press Enter to continue...\n";
-		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		//std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		std::cin.get();
 		customize::clearScreen();
 	}

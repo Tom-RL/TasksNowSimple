@@ -11,12 +11,12 @@ bool saveTaskListInFile(const std::vector<Task>& taskList, const std::string& fi
         std::cerr << "Failed to open " << filename << " for writing.\n";
         return false;
     }
-
+    
     for (const auto& task : taskList)
     {
-        file << task.getId() << ';'
-            << task.getName() << ';'
-            << task.getDescription() << ';'
+        file << task.getId() << ','
+            << task.getName() << ','
+            << task.getDescription() << ','
             << task.isCompleted() << '\n';
     }
 
