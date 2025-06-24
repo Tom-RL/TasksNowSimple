@@ -8,7 +8,7 @@
 #include "task/task.h" // Class Task header
 #include "storage/Storage.h" // Storage functions header
 
-std::vector<Task> taskList{}; //temporário
+std::vector<Task> taskList{};
 
 // a local namespace to agroup customizing functions
 namespace customize
@@ -45,13 +45,30 @@ namespace customize
 	}
 }
 
-// Checks for input errors and clears the input buffer if necessary	
-void cinError()
+namespace cleaner
 {
-	if (std::cin.fail())
+	// Checks for input error
+	bool cinCheck()
 	{
-		std::cin.clear(); // remove the error state
-		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // clear the buffer
+		if (std::cin.fail())
+		{
+			return true;
+		}
+		else
+			return false;
+	}
+
+	// clean buffer
+	void cleanBuffer()
+	{
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+	}
+
+	// check and clean buffer
+	void cinError()
+	{
+		if (cinCheck())
+			cleanBuffer();
 	}
 }
 
@@ -139,7 +156,6 @@ void listTasks() //funtion to list tasks
 			std::cout << task << "\n\n"; // uses the overloaded operator<< from task.h to print the task
 		}
 		std::cout << "Press Enter to continue...\n";
-		//std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		std::cin.get();
 		customize::clearScreen();
 	}
@@ -166,7 +182,7 @@ void markTaskAsCompleted() //funtion to mark a task as completed
 		std::cin >> id;
 		if (!std::cin)
 		{
-			cinError();
+			cleaner::cinError();
 			customize::setColor(12); // red
 			std::cout << "Invalid input. Please enter a valid task ID.\n\n";
 			customize::setColor(7);
@@ -244,7 +260,7 @@ void removeTask() //funtion to remove a task
 		std::cin >> id;
 		if (!std::cin)
 		{
-			cinError();
+			cleaner::cinError();
 			customize::setColor(12); // red
 			std::cout << "Invalid input. Please enter a valid task ID.\n\n";
 			customize::setColor(7);
@@ -315,12 +331,13 @@ void saveTaskList() //funtion to save the task list to a file
 
 int main()
 {
-	/*	// Set console encoding to UTF - 8
-	 *	SetConsoleOutputCP(CP_UTF8);
-	 *	SetConsoleCP(CP_UTF8);
-	 */
 
 	taskList = loadTaskList("task.txt"); // Load tasks from file at the start of the program
+	if (taskList.empty())
+	{
+		customize::setDelay(5);
+		customize::clearScreen();
+	}
 
 	bool isRunning = true;
 
@@ -328,12 +345,12 @@ int main()
 	{
 		showMenu();
 
-		std::cout << "choose an option: ";
+		std::cout << "choose an option : ";
 		int option{};
 		std::cin >> option;
 		if (!std::cin) // checks if the input is valid
 		{
-			cinError();
+			cleaner::cinError();
 			customize::setColor(12); // red
 			std::cout << "Invalid input. Try again.\n\n";
 			customize::setColor(7);
@@ -347,25 +364,25 @@ int main()
 		case 1:
 			customize::clearScreen();
 			std::cout << "Add task selected.\n\n";
-			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // clear the input buffer
+			cleaner::cleanBuffer();
 			addTask();
 			break;
 		case 2:
 			customize::clearScreen();
 			std::cout << "List tasks selected.\n\n";
-			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			cleaner::cleanBuffer();
 			listTasks();
 			break;
 		case 3:
 			customize::clearScreen();
 			std::cout << "Mark task as complete selected.\n\n";
-			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			cleaner::cleanBuffer();
 			markTaskAsCompleted();
 			break;
 		case 4:
 			customize::clearScreen();
 			std::cout << "Remove task selected.\n\n";
-			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			cleaner::cleanBuffer();
 			removeTask();
 			break;
 		case 5:
@@ -384,7 +401,7 @@ int main()
 			customize::setColor(12); // red
 			std::cout << "Invalid option. Try again\n\n";
 			customize::setColor(7);
-			cinError();
+			cleaner::cinError();
 			continue;
 		}
 
