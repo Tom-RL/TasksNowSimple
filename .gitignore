@@ -13,3 +13,5 @@
 TasksNowSimple.rc
 resource.h
 TasksNowSimple.aps
+*.pdb
+/x64
