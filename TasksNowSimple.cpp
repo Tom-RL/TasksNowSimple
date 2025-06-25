@@ -68,7 +68,10 @@ namespace cleaner
 	void cinError()
 	{
 		if (cinCheck())
+		{
+			std::cin.clear();
 			cleanBuffer();
+		}
 	}
 }
 
@@ -125,7 +128,7 @@ void addTask() //function to add a task
 	id++; // increments the id for the next task
 
 	customize::setColor(10); // green
-	std::cout << "Task added successfully!\n\n";
+	std::cout << "Task added successfully!";
 	customize::setColor(7);
 	customize::setDelay(2000);
 	customize::clearScreen();
@@ -345,16 +348,16 @@ int main()
 	{
 		showMenu();
 
-		std::cout << "choose an option : ";
+		std::cout << "choose an option: ";
 		int option{};
 		std::cin >> option;
 		if (!std::cin) // checks if the input is valid
 		{
 			cleaner::cinError();
 			customize::setColor(12); // red
-			std::cout << "Invalid input. Try again.\n\n";
+			std::cout << "Invalid input. Try again.";
 			customize::setColor(7);
-			customize::setDelay(1000);
+			customize::setDelay(1400);
 			customize::clearScreen();
 			continue;
 		}
@@ -392,14 +395,58 @@ int main()
 			break;
 		case 6:
 		case 0:
-			std::cout << "Leaving the program...\n\n";
-			customize::setDelay(1000);
+			while (true)
+			{
+				customize::clearScreen();
+				cleaner::cleanBuffer();
+				std::cout << "Do you want to save the task list?(y or n) ";
+				char Yn{};
+				std::cin >> Yn;
+				if (cleaner::cinCheck())
+				{
+					cleaner::cinError();
+					continue;
+				}
+				
+				switch (std::tolower(Yn))
+				{
+				case 'y':
+					customize::setColor(14); // yellow
+					std::cout << "Saving task list...\n\n";
+					customize::setColor(7);
+					customize::setDelay(1000);
+					customize::clearScreen();
+
+					saveTaskListInFile(taskList, "task.txt");
+					customize::setColor(10); // green
+					std::cout << "List saved successfully\n";
+					customize::setColor(7);
+					customize::setDelay(1000);
+					customize::clearScreen();
+					break;
+
+				case 'n':
+					break;
+
+				default:
+					customize::setColor(12); // red
+					std::cout << "Invalid input. Please enter \'y\' or \'n\'.\n";
+					customize::setColor(7);
+					customize::setDelay(1400);
+					continue;
+				}
+
+				std::cout << "Leaving the program...\n";
+				customize::setDelay(1000);
+				break;
+			}
+
 			isRunning = false;
 			break;
 
 		default:
 			customize::setColor(12); // red
-			std::cout << "Invalid option. Try again\n\n";
+			std::cout << "Invalid option. Try again\n";
 			customize::setColor(7);
 			cleaner::cinError();
 			continue;
