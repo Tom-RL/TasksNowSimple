@@ -414,14 +414,14 @@ int main()
 					customize::setColor(14); // yellow
 					std::cout << "Saving task list...\n\n";
 					customize::setColor(7);
-					customize::setDelay(1000);
+					customize::setDelay(1200);
 					customize::clearScreen();
 
 					saveTaskListInFile(taskList, "task.txt");
 					customize::setColor(10); // green
 					std::cout << "List saved successfully\n";
 					customize::setColor(7);
-					customize::setDelay(1000);
+					customize::setDelay(1300);
 					customize::clearScreen();
 					break;
 
@@ -432,12 +432,12 @@ int main()
 					customize::setColor(12); // red
 					std::cout << "Invalid input. Please enter \'y\' or \'n\'.\n";
 					customize::setColor(7);
-					customize::setDelay(1400);
+					customize::setDelay(1600);
 					continue;
 				}
 
 				std::cout << "Leaving the program...\n";
-				customize::setDelay(1000);
+				customize::setDelay(1700);
 				break;
 			}
 
