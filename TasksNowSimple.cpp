@@ -141,7 +141,7 @@ void listTasks() //funtion to list tasks
 	if(taskList.empty())
 	{ 
 		customize::setColor(12); // red
-		std::cout << "No tasks available.\n\n";
+		std::cout << "No tasks available.";
 		customize::setColor(7);
 		customize::setDelay(2000);	
 		customize::clearScreen();
@@ -158,7 +158,7 @@ void listTasks() //funtion to list tasks
 		{
 			std::cout << task << "\n\n"; // uses the overloaded operator<< from task.h to print the task
 		}
-		std::cout << "Press Enter to continue...\n";
+		std::cout << "Press Enter to continue...";
 		std::cin.get();
 		customize::clearScreen();
 	}
@@ -172,7 +172,7 @@ void markTaskAsCompleted() //funtion to mark a task as completed
 	if (taskList.empty())
 	{
 		customize::setColor(12); // red
-		std::cout << "No tasks available to mark as completed.\n\n";
+		std::cout << "No tasks available to mark as completed.";
 		customize::setColor(7);
 		customize::setDelay(2000);
 		customize::clearScreen();
@@ -187,7 +187,7 @@ void markTaskAsCompleted() //funtion to mark a task as completed
 		{
 			cleaner::cinError();
 			customize::setColor(12); // red
-			std::cout << "Invalid input. Please enter a valid task ID.\n\n";
+			std::cout << "Invalid input. Please enter a valid task ID.";
 			customize::setColor(7);
 			customize::setDelay(2000);
 			customize::clearScreen();
@@ -210,7 +210,7 @@ void markTaskAsCompleted() //funtion to mark a task as completed
 				if (task.isCompleted()) // checks if the task is already marked as completed
 				{
 					customize::setColor(12); // red
-					std::cout << "Task " << task.getName() << " is already marked as completed.\n\n";
+					std::cout << "Task " << task.getName() << " is already marked as completed.";
 					customize::setColor(7);
 					customize::setDelay(2000);
 					customize::clearScreen();
@@ -225,7 +225,7 @@ void markTaskAsCompleted() //funtion to mark a task as completed
 					customize::clearScreen();
 
 					customize::setColor(10); // green
-					std::cout << "Task " << task.getName() << " marked as completed successfully!\n\n";
+					std::cout << "Task " << task.getName() << " marked as completed successfully!";
 					customize::setColor(7);
 					customize::setDelay(2000);
 					customize::clearScreen();
@@ -235,7 +235,7 @@ void markTaskAsCompleted() //funtion to mark a task as completed
 		}
 
 		customize::setColor(12); // red
-		std::cout << "Task with ID " << id << " not found.\n\n";
+		std::cout << "Task with ID " << id << " not found.";
 		customize::setColor(7);
 		customize::setDelay(2000);
 		customize::clearScreen();
