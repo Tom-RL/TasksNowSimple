@@ -8,26 +8,35 @@ using json = nlohmann::ordered_json;
 
 bool saveTaskListInFile(const std::vector<Task>& taskList, const std::string& filename)
 {
-    json jTasks{ json::array() };
+    json jTasks{json::array()};
 
-    for (const auto& task : taskList)
-    {
-        jTasks.push_back({
-            { "id", task.getId() },
-            { "name", task.getName() },
-            { "description", task.getDescription() },
-            { "completed", task.isCompleted() }
-        });
+    try {
+        std::ofstream file(filename, std::ios::binary);
+        if (!file)
+        {
+            std::cerr << "Could not open file for writing: " << filename << '\n';
+            return false;
+        }
+
+        json jTasks = json::array();
+
+        for (const auto& task : taskList)
+        {
+            jTasks.push_back({
+                { "id", task.getId() },
+                { "name", task.getName() },
+                { "description", task.getDescription() },
+                { "completed", task.isCompleted() }
+                });
+        }
+
+        file << jTasks.dump(4);
     }
-
-    std::ofstream file(filename);
-    if (!file)
-    {
-        std::cerr << "Could not open file for writing.\n";
+    catch (const std::exception& e) {
+        std::cerr << "Could not open file for writing: " << e.what() << '\n';
         return false;
     }
 
-    file << jTasks.dump(4);
     return true;
 }
 
@@ -45,6 +54,12 @@ std::vector<Task> loadTaskList(const std::string& filename)
 
     try {
         file >> jTasks;
+        if (jTasks.is_null() || !jTasks.is_array())
+        {
+            std::cerr << "Invalid JSON format in file: " << filename << '\n';
+            return tasks;
+		}
+
         for (const auto& j : jTasks)
         {
             tasks.emplace_back(Task{

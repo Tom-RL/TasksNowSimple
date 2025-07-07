@@ -2,13 +2,11 @@
 #include <limits>
 #include <Windows.h>
 #include <vector>
-#include <iostream>
 #include <chrono>
 #include <thread>
+#include <iostream>
 #include "task/task.h" // Class Task header
 #include "storage/Storage.h" // Storage functions header
-
-std::vector<Task> taskList{};
 
 // a local namespace to agroup customizing functions
 namespace customize
@@ -73,6 +71,7 @@ namespace cleaner
 			cleanBuffer();
 		}
 	}
+
 }
 
 void showMenu() //function to show the menu options
@@ -105,6 +104,7 @@ void addTask() //function to add a task
 	std::cout << "Enter the task name: ";
 	std::string name{};
 	std::getline(std::cin >> std::ws, name);
+
 	if (name.empty())
 	{
 		customize::setColor(12); // red
@@ -288,7 +288,7 @@ void removeTask() //funtion to remove a task
 				customize::setColor(14); // yellow
 				std::cout << "Removing task " << task.getName() << "...\n";
 				taskList.erase(taskList.begin() + id); // removes the task from the list
-				customize::setDelay(1000);
+				customize::setDelay(1600);
 				customize::clearScreen();
 				customize::setColor(10); // green
 				std::cout << "Task removed successfully!\n\n";
@@ -334,11 +334,12 @@ void saveTaskList() //funtion to save the task list to a file
 
 int main()
 {
-
+	SetConsoleOutputCP(CP_UTF8);
+	
 	taskList = loadTaskList("task.txt"); // Load tasks from file at the start of the program
 	if (taskList.empty())
 	{
-		customize::setDelay(5);
+		customize::setDelay(2000);
 		customize::clearScreen();
 	}
 
