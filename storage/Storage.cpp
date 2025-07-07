@@ -8,7 +8,7 @@ using json = nlohmann::ordered_json;
 
 bool saveTaskListInFile(const std::vector<Task>& taskList, const std::string& filename)
 {
-    json jTasks{json::array()};
+    json jTasks{ json::array() };
 
     try {
         std::ofstream file(filename, std::ios::binary);

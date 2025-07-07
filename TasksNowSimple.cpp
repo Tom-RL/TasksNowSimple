@@ -104,7 +104,6 @@ void addTask() //function to add a task
 	std::cout << "Enter the task name: ";
 	std::string name{};
 	std::getline(std::cin >> std::ws, name);
-
 	if (name.empty())
 	{
 		customize::setColor(12); // red
