@@ -5,7 +5,7 @@
 #include <vector>
 #include "../task/Task.h"
 
-static std::vector<Task> taskList{}; //lista de tarefas global
+static std::vector<Task> taskList{}; //task list global variable
 
 bool saveTaskListInFile(const std::vector<Task>& taskList, const std::string& filename);
 std::vector<Task> loadTaskList(const std::string& filename);
