@@ -5,10 +5,6 @@
 *.opendb
 /.vs
 /x64/Debug
-*.sln
-*.vcxproj
-*.filters
-*.user
 /TasksNowSimple/x64
 TasksNowSimple.rc
 resource.h
