@@ -33,7 +33,8 @@ bool saveTaskListInFile(const std::vector<Task>& taskList, const std::string& fi
         file << jTasks.dump(4);
     }
     catch (const std::exception& e) {
-        std::cerr << "Could not open file for writing: " << e.what() << '\n';
+		std::cerr << "Error saving task list\n";
+        // std::cerr << "Could not open file for writing: " << e.what() << '\n';
         return false;
     }
 
@@ -72,7 +73,8 @@ std::vector<Task> loadTaskList(const std::string& filename)
     }
     catch (const std::exception& e)
     {
-        std::cerr << "Error loading JSON: " << e.what() << '\n';
+        std::cerr << "Error loading list\n";
+		// std::cerr << "Could not read file: " << e.what() << '\n';
     }
 
     return tasks;

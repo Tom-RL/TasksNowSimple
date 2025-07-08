@@ -333,8 +333,6 @@ void saveTaskList() //funtion to save the task list to a file
 
 int main()
 {
-	SetConsoleOutputCP(CP_UTF8);
-	
 	taskList = loadTaskList("task.txt"); // Load tasks from file at the start of the program
 	if (taskList.empty())
 	{
@@ -417,12 +415,31 @@ int main()
 					customize::setDelay(1200);
 					customize::clearScreen();
 
-					saveTaskListInFile(taskList, "task.txt");
-					customize::setColor(10); // green
-					std::cout << "List saved successfully\n";
-					customize::setColor(7);
-					customize::setDelay(1300);
-					customize::clearScreen();
+					if (taskList.empty())
+					{
+						customize::setColor(12); // red
+						std::cout << "No tasks to save.\n";
+						customize::setColor(7);
+						customize::setDelay(1600);
+						customize::clearScreen();
+						break;
+					}
+					if (saveTaskListInFile(taskList, "task.txt"))
+					{
+						customize::setColor(10); // green
+						std::cout << "Task list saved successfully!\n";
+						customize::setColor(7);
+						customize::setDelay(1300);
+						customize::clearScreen();
+					}
+					else
+					{
+						customize::setColor(12); // red
+						std::cout << "Failed to save task list.\n";
+						customize::setColor(7);
+						customize::setDelay(1600);
+						customize::clearScreen();
+					}
 					break;
 
 				case 'n':
