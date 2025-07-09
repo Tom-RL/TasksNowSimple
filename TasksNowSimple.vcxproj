@@ -32,6 +32,7 @@
     <ProjectGuid>{a43d3098-18ab-4fcf-b0be-91fe36f281a7}</ProjectGuid>
     <RootNamespace>TasksNowSimple</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>TasksNowSimple (V1)</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
