@@ -179,6 +179,22 @@ void markTaskAsCompleted() //funtion to mark a task as completed
 	}
 	else
 	{
+		for (const auto& task : taskList)
+		{
+			if (!task.isCompleted()) // if the task is not completed, print it normally
+			{
+				std::cout << task.getId() << ") " << task.getName() << " (is not completed)\n";
+			}
+			else
+			{
+				customize::setColor(10); // green
+				std::cout << task.getId() << ") " << task.getName() << '\n';
+				customize::setColor(7); // reset color to default
+			}
+		}
+
+		std::cout << '\n';
+
 		std::cout << "Enter the ID of the task to mark as completed: ";
 		int id{};
 		std::cin >> id;
@@ -257,6 +273,16 @@ void removeTask() //funtion to remove a task
 	}
 	else
 	{
+		for (const auto& task : taskList)
+		{
+			if (!task.isCompleted()) // if the task is not completed, print it normally
+				std::cout << task.getId() << ") " << task.getName() << " (is not completed)\n";
+			else
+				std::cout << task.getId() << ") " << task.getName() << '\n';
+		}
+
+		std::cout << '\n';
+
 		std::cout << "Enter the ID of the task to remove: ";
 		int id{};
 		std::cin >> id;
