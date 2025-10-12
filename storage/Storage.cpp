@@ -18,8 +18,6 @@ bool saveTaskListInFile(const std::vector<Task>& taskList, const std::string& fi
             return false;
         }
 
-        json jTasks = json::array();
-
         for (const auto& task : taskList)
         {
             jTasks.push_back({
