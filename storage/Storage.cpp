@@ -1,5 +1,5 @@
 #include "Storage.h"
-#include <../nlohmann/json.hpp>
+#include <nlohmann/json.hpp>
 #include <fstream>
 #include <sstream>
 #include <iostream>
