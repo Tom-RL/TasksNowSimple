@@ -12,3 +12,4 @@ TasksNowSimple.aps
 *.pdb
 /x64
 /TasksNow.a43d3098
+.idea/workspace.xml
