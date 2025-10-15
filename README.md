@@ -32,7 +32,7 @@ cd TasksNowSimple
 
 > ⚠️ Currently Windows-only. Linux support is planned for a future version.
 
-**On Windows (Visual Studio):**
+**On Windows (Visual Studio (CLion planned)):**
 
 * Open the `.sln` file
 * Build in `Debug` or `Release` mode
@@ -71,7 +71,7 @@ TNS is evolving! A complete redesign is planned to improve scalability, maintain
 
 * **Core (C++ DLL):** Handles all task logic and data operations
 * **CLI (C++):** Terminal interface using the core as a dynamic library
-* **GUI (C# + Avalonia):** Cross-platform graphical interface built on top of the core
+* **GUI (C# + Avalonia) or (QT):** Cross-platform graphical interface built on top of the core
 
 This change will allow both terminal lovers and GUI users to benefit from the same powerful backend.
 
@@ -80,7 +80,7 @@ This change will allow both terminal lovers and GUI users to benefit from the sa
 ## 💡 Future Plans
 
 * [ ] Modular core as a shared library (DLL)
-* [ ] Avalonia-based GUI (cross-platform)
+* [ ] Avalonia-based GUI or QT GUI (cross-platform)
 * [ ] Command-line improvements (better UX)
 * [ ] Settings system (themes, autosave, etc.)
 * [ ] Database support (SQLite, optional)
