@@ -30,9 +30,9 @@ cd TasksNowSimple
 
 **On Linux:**
 
-> ⚠️ Currently Windows-only. Linux support is planned for a future version.
+> ⚠️ Currently still in development and the next version will be the only one version.
 
-**On Windows (Visual Studio (CLion planned)):**
+**On Windows Visual Studio(Linux will be the main version):**
 
 * Open the `.sln` file
 * Build in `Debug` or `Release` mode

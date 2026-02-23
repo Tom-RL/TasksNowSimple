@@ -1,41 +1,19 @@
-#define NOMINMAX // disabling min and max from Windows.h header
 #include <limits>
-#include <Windows.h>
 #include <vector>
 #include <chrono>
 #include <thread>
 #include <iostream>
-#include "task/task.h" // Class Task header
+#include "task/Task.h" // Class Task header
 #include "storage/Storage.h" // Storage functions header
 
 // a local namespace to agroup customizing functions
 namespace customize
 {
 	// Set console text color
-	void setColor(WORD color)
+	void setColor(auto color)
 	{
-		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
+		std::clog << "ainda não fiz a função de setar a cor\n";
 	}
-
-	// Clear console screen
-	void clearScreen()
-	{
-		HANDLE hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
-		CONSOLE_SCREEN_BUFFER_INFO csbi;
-		DWORD count;
-		DWORD cellCount;
-		COORD homeCoords = { 0, 0 };
-
-		if (hStdOut == INVALID_HANDLE_VALUE) return;
-		if (!GetConsoleScreenBufferInfo(hStdOut, &csbi)) return;
-
-		cellCount = csbi.dwSize.X * csbi.dwSize.Y;
-
-		FillConsoleOutputCharacter(hStdOut, ' ', cellCount, homeCoords, &count);
-		FillConsoleOutputAttribute(hStdOut, csbi.wAttributes, cellCount, homeCoords, &count);
-		SetConsoleCursorPosition(hStdOut, homeCoords);
-	}
-
 	// Set a delayer
 	void setDelay(int milliseconds)
 	{
@@ -49,9 +27,7 @@ namespace cleaner
 	bool cinCheck()
 	{
 		if (std::cin.fail())
-		{
 			return true;
-		}
 		else
 			return false;
 	}
@@ -98,8 +74,7 @@ void addTask() //function to add a task
 		}
 	}
 
-	customize::setDelay(1200); 
-	customize::clearScreen();
+	customize::setDelay(1200);
 
 	std::cout << "Enter the task name: ";
 	std::string name{};
@@ -130,20 +105,17 @@ void addTask() //function to add a task
 	std::cout << "Task added successfully!";
 	customize::setColor(7);
 	customize::setDelay(2000);
-	customize::clearScreen();
 }
 
 void listTasks() //funtion to list tasks
 {
 	customize::setDelay(1200);
-	customize::clearScreen();
 	if(taskList.empty())
 	{ 
 		customize::setColor(12); // red
 		std::cout << "No tasks available.";
 		customize::setColor(7);
-		customize::setDelay(2000);	
-		customize::clearScreen();
+		customize::setDelay(2000);
 		return;
 	}
 	else
@@ -159,14 +131,12 @@ void listTasks() //funtion to list tasks
 		}
 		std::cout << "Press Enter to continue...";
 		std::cin.get();
-		customize::clearScreen();
 	}
 }
 
 void markTaskAsCompleted() //funtion to mark a task as completed
 {
 	customize::setDelay(1200);
-	customize::clearScreen();
 
 	if (taskList.empty())
 	{
@@ -174,7 +144,6 @@ void markTaskAsCompleted() //funtion to mark a task as completed
 		std::cout << "No tasks available to mark as completed.";
 		customize::setColor(7);
 		customize::setDelay(2000);
-		customize::clearScreen();
 		return;
 	}
 	else
@@ -205,7 +174,6 @@ void markTaskAsCompleted() //funtion to mark a task as completed
 			std::cout << "Invalid input. Please enter a valid task ID.";
 			customize::setColor(7);
 			customize::setDelay(2000);
-			customize::clearScreen();
 			return;
 		}
 		if (id < 0) // checks if the id is negative
@@ -214,7 +182,6 @@ void markTaskAsCompleted() //funtion to mark a task as completed
 			std::cout << "Invalid ID. Task ID cannot be negative.\n\n";
 			customize::setColor(7);
 			customize::setDelay(2000);
-			customize::clearScreen();
 			return;
 		}
 
@@ -228,7 +195,6 @@ void markTaskAsCompleted() //funtion to mark a task as completed
 					std::cout << "Task " << task.getName() << " is already marked as completed.";
 					customize::setColor(7);
 					customize::setDelay(2000);
-					customize::clearScreen();
 					return;
 				}
 				else
@@ -237,13 +203,11 @@ void markTaskAsCompleted() //funtion to mark a task as completed
 					std::cout << "Marking task " << task.getName() << " as completed...\n";
 					task.markCompleted(); // marks the task as completed
 					customize::setDelay(1000);
-					customize::clearScreen();
 
 					customize::setColor(10); // green
 					std::cout << "Task " << task.getName() << " marked as completed successfully!";
 					customize::setColor(7);
 					customize::setDelay(2000);
-					customize::clearScreen();
 					return;
 				}
 			}
@@ -253,7 +217,6 @@ void markTaskAsCompleted() //funtion to mark a task as completed
 		std::cout << "Task with ID " << id << " not found.";
 		customize::setColor(7);
 		customize::setDelay(2000);
-		customize::clearScreen();
 	}
 
 }
@@ -261,14 +224,12 @@ void markTaskAsCompleted() //funtion to mark a task as completed
 void removeTask() //funtion to remove a task
 {
 	customize::setDelay(1200);
-	customize::clearScreen();
 	if (taskList.empty())
 	{
 		customize::setColor(12); // red
 		std::cout << "No tasks available to remove.\n\n";
 		customize::setColor(7);
 		customize::setDelay(2000);
-		customize::clearScreen();
 		return;
 	}
 	else
@@ -293,7 +254,6 @@ void removeTask() //funtion to remove a task
 			std::cout << "Invalid input. Please enter a valid task ID.\n\n";
 			customize::setColor(7);
 			customize::setDelay(2000);
-			customize::clearScreen();
 			return;
 		}
 		if (id < 0) // checks if the id is negative
@@ -302,7 +262,6 @@ void removeTask() //funtion to remove a task
 			std::cout << "Invalid ID. Task ID cannot be negative.\n\n";
 			customize::setColor(7);
 			customize::setDelay(2000);
-			customize::clearScreen();
 			return;
 		}
 
@@ -314,12 +273,10 @@ void removeTask() //funtion to remove a task
 				std::cout << "Removing task " << task.getName() << "...\n";
 				taskList.erase(taskList.begin() + id); // removes the task from the list
 				customize::setDelay(1600);
-				customize::clearScreen();
 				customize::setColor(10); // green
 				std::cout << "Task removed successfully!\n\n";
 				customize::setColor(7);
 				customize::setDelay(2000);
-				customize::clearScreen();
 				return;
 			}
 		}
@@ -329,14 +286,12 @@ void removeTask() //funtion to remove a task
 void saveTaskList() //funtion to save the task list to a file
 {
 	customize::setDelay(1200); // delay for 1.2 seconds
-	customize::clearScreen();
 	if (taskList.empty())
 	{
 		customize::setColor(12); // red
 		std::cout << "No tasks to save.\n\n";
 		customize::setColor(7);
 		customize::setDelay(2000); // delay for 2 seconds
-		customize::clearScreen();
 		return;
 	}
 
@@ -354,7 +309,6 @@ void saveTaskList() //funtion to save the task list to a file
 	}
 
 	customize::setDelay(2000); // delay for 2 seconds
-	customize::clearScreen();
 }
 
 int main()
@@ -363,7 +317,6 @@ int main()
 	if (taskList.empty())
 	{
 		customize::setDelay(2000);
-		customize::clearScreen();
 	}
 
 	bool isRunning = true;
@@ -382,38 +335,32 @@ int main()
 			std::cout << "Invalid input. Try again.";
 			customize::setColor(7);
 			customize::setDelay(1400);
-			customize::clearScreen();
 			continue;
 		}
 
 		switch (option)
 		{
 		case 1:
-			customize::clearScreen();
 			std::cout << "Add task selected.\n\n";
 			cleaner::cleanBuffer();
 			addTask();
 			break;
 		case 2:
-			customize::clearScreen();
 			std::cout << "List tasks selected.\n\n";
 			cleaner::cleanBuffer();
 			listTasks();
 			break;
 		case 3:
-			customize::clearScreen();
 			std::cout << "Mark task as complete selected.\n\n";
 			cleaner::cleanBuffer();
 			markTaskAsCompleted();
 			break;
 		case 4:
-			customize::clearScreen();
 			std::cout << "Remove task selected.\n\n";
 			cleaner::cleanBuffer();
 			removeTask();
 			break;
 		case 5:
-			customize::clearScreen();
 			std::cout << "Save list selected.\n\n";
 			saveTaskList();
 			break;
@@ -421,7 +368,6 @@ int main()
 		case 0:
 			while (true)
 			{
-				customize::clearScreen();
 				cleaner::cleanBuffer();
 				std::cout << "Do you want to save the task list?(y or n) ";
 				char Yn{};
@@ -439,7 +385,6 @@ int main()
 					std::cout << "Saving task list...\n\n";
 					customize::setColor(7);
 					customize::setDelay(1200);
-					customize::clearScreen();
 
 					if (taskList.empty())
 					{
@@ -447,7 +392,6 @@ int main()
 						std::cout << "No tasks to save.\n";
 						customize::setColor(7);
 						customize::setDelay(1600);
-						customize::clearScreen();
 						break;
 					}
 					if (saveTaskListInFile(taskList, "task.txt"))
@@ -456,7 +400,6 @@ int main()
 						std::cout << "Task list saved successfully!\n";
 						customize::setColor(7);
 						customize::setDelay(1300);
-						customize::clearScreen();
 					}
 					else
 					{
@@ -464,7 +407,6 @@ int main()
 						std::cout << "Failed to save task list.\n";
 						customize::setColor(7);
 						customize::setDelay(1600);
-						customize::clearScreen();
 					}
 					break;
 
